@@ -249,9 +249,154 @@ class DataProcess(QWidget):
     
     def InitUI(self):
         # define component
-        self.button15 = QPushButton()
-        self.button16 = QPushButton()
-        self.button17 = QPushButton()
+        self.button15 = QPushButton("Select Energy")
+        self.button15.setStyleSheet("background:linen")
+        self.button16 = QPushButton("Select RMSD")
+        self.button16.setStyleSheet("background:linen")
+        self.button17 = QPushButton("Select PDB")
+        self.button17.setStyleSheet("background:wheat")
+        self.button18 = QPushButton("Select PDB")
+        self.button18.setStyleSheet("background:wheat")
+        self.button18.setStyleSheet("background:linen")
+        self.button19 = QPushButton("Select Origin")
+        self.button19.setStyleSheet("background:wheat")
+        self.button20 = QPushButton("Select Target")
+        self.button20.setStyleSheet("background:wheat")
+        self.button21 = QPushButton("Select Origin")
+        self.button21.setStyleSheet("background:linen")
+        self.button22 = QPushButton("Select Target")
+        self.button22.setStyleSheet("background:linen")
+        self.button23 = QPushButton("Select PDB")
+        # console
+        self.txt12 = QTextEdit()
+        # Line Edit
+        self.txt13 = QLineEdit()
+        self.txt13.setStyleSheet("background:linen")
+        self.txt14 = QLineEdit()
+        self.txt14.setStyleSheet("background:linen")
+        self.txt15 = QLineEdit()
+        self.txt15.setStyleSheet("background:wheat")
+        self.txt16 = QLineEdit()
+        self.txt16.setStyleSheet("background:linen")
+        self.txt17 = QLineEdit()
+        self.txt17.setStyleSheet("background:wheat")
+        self.txt18 = QLineEdit()
+        self.txt18.setStyleSheet("background:wheat")
+        self.txt19 = QLineEdit()
+        self.txt19.setStyleSheet("background:linen")
+        self.txt20 = QLineEdit()
+        self.txt20.setStyleSheet("background:linen")
+        self.txt21 = QLineEdit()
+        self.txt21.setStyleSheet("background:wheat")
+
+        # group box
+        self.groupbox7 = QGroupBox("Basic Plot")
+        self.groupbox8 = QGroupBox("3D Visual")
+        self.groupbox9 = QGroupBox("Pair Distribution")
+        self.groupbox10 = QGroupBox("Homology Analysis")
+        self.groupbox11 = QGroupBox("RMSD")
+        self.groupbox12 = QGroupBox("Primary Extracted")
+        self.groupbox13 = QGroupBox("Console")
+
+        
+        # First class layout
+        layout_dp = QVBoxLayout()
+        # Second class layout
+        layout01_dp = QHBoxLayout()
+        layout02_dp = QHBoxLayout()
+        # Third class layout
+        layout001_dp = QVBoxLayout()
+        layout002_dp = QVBoxLayout()
+        # Forth class layout
+        layout0001_dp = QVBoxLayout()
+        layout0002_dp = QVBoxLayout()
+        layout0003_dp = QVBoxLayout()
+        layout0004_dp = QVBoxLayout()
+        layout0005_dp = QVBoxLayout()
+        layout0006_dp = QVBoxLayout()
+        layout0007_dp = QVBoxLayout()
+        # Fifth class layout
+        layout00001_dp = QHBoxLayout()
+        layout00002_dp = QHBoxLayout()
+        layout00003_dp = QHBoxLayout()
+        layout00004_dp = QHBoxLayout()
+        layout00005_dp = QHBoxLayout()
+        layout00006_dp = QHBoxLayout()
+        layout00007_dp = QHBoxLayout()
+        layout00008_dp = QHBoxLayout()
+        layout00009_dp = QHBoxLayout()
+
+
+        # layout add component
+        ######### Basic Plot ##########
+        layout00001_dp.addWidget(self.button15)
+        layout00001_dp.addWidget(self.txt13)
+        layout00002_dp.addWidget(self.button16)
+        layout00002_dp.addWidget(self.txt14)
+        layout0001_dp.addLayout(layout00001_dp)
+        layout0001_dp.addLayout(layout00002_dp)
+        self.groupbox7.setLayout(layout0001_dp)
+        self.groupbox7.setStyleSheet("background:lavender")
+        layout001_dp.addWidget(self.groupbox7)
+
+        ######### 3D Visual ############
+        layout00003_dp.addWidget(self.button17)
+        layout00003_dp.addWidget(self.txt15)
+        layout0003_dp.addLayout(layout00003_dp)
+        self.groupbox8.setLayout(layout0003_dp)
+        self.groupbox8.setStyleSheet("background:lavenderblush")
+        layout001_dp.addWidget(self.groupbox8)
+
+        ######### Pair Distribution ########
+        layout00004_dp.addWidget(self.button18)
+        layout00004_dp.addWidget(self.txt16)
+        layout0004_dp.addLayout(layout00004_dp)
+        self.groupbox9.setLayout(layout0004_dp)
+        self.groupbox9.setStyleSheet("background:lavender")
+        layout001_dp.addWidget(self.groupbox9)
+
+        ########## Homology analysis ###########
+        layout00005_dp.addWidget(self.button19)
+        layout00005_dp.addWidget(self.txt17)
+        layout00006_dp.addWidget(self.button20)
+        layout00006_dp.addWidget(self.txt18)
+        layout0005_dp.addLayout(layout00005_dp)
+        layout0005_dp.addLayout(layout00006_dp)
+        self.groupbox10.setLayout(layout0005_dp)
+        self.groupbox10.setStyleSheet("background:lavenderblush")
+        layout002_dp.addWidget(self.groupbox10)
+
+        ######### RMSD #########
+        layout00007_dp.addWidget(self.button21)
+        layout00007_dp.addWidget(self.txt19)
+        layout00008_dp.addWidget(self.button22)
+        layout00008_dp.addWidget(self.txt20)
+        layout0006_dp.addLayout(layout00007_dp)
+        layout0006_dp.addLayout(layout00008_dp)
+        self.groupbox11.setLayout(layout0006_dp)
+        self.groupbox11.setStyleSheet("background:lavender")
+        layout002_dp.addWidget(self.groupbox11)
+
+        ######### Primary Structure Extract #######
+        layout00009_dp.addWidget(self.button23)
+        layout00009_dp.addWidget(self.txt21)
+        layout0007_dp.addLayout(layout00009_dp)
+        self.groupbox12.setLayout(layout0007_dp)
+        self.groupbox12.setStyleSheet("background:lavenderblush")
+        layout002_dp.addWidget(self.groupbox12)
+
+        ######### Console #########
+        layout02_dp.addWidget(self.txt12)
+        self.groupbox13.setLayout(layout02_dp)
+
+        # setting layout
+        layout01_dp.addLayout(layout001_dp)
+        layout01_dp.addLayout(layout002_dp)
+        layout_dp.addLayout(layout01_dp)
+        layout_dp.addWidget(self.groupbox13)
+        
+        self.setLayout(layout_dp)
+
 
 class InstucAndInfo(QWidget):
     def __init__(self,parent=None):
