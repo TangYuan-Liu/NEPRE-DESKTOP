@@ -9,7 +9,37 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4.QtWebKit import *
 import sys
+import os
+sys.path.append("..")
+import backend.package_func as tools
 
+###################
+# print redirection
+class OutLog:
+    def __init__(self, edit, out=None, color=None):
+        """
+        edit = QTextEdit
+        out = alternate stream(can be the original sys.stdout)
+        color = alternate color (color stderr a different color)
+        """
+        self.edit = edit
+        self.out = None
+        self.color = color
+
+    def write(self, m):
+        if self.color:
+            tc = self.edit.textColor()
+            self.edit.setTextColor(self.color)
+        
+        self.edit.moveCursor(QTextCursor.End)
+        self.edit.insertPlainText(m)
+
+        if self.color:
+            self.edit.setTextColor(tc)
+        
+        if self.out:
+            self.out.write(m)
+#######################
 
 class MainWindow(QWidget):
 
@@ -35,7 +65,69 @@ class nepreUI(QWidget):
         super(nepreUI,self).__init__()
         self.initUI()
 
+    def OpenFile(self,line_edit):
+        FileDialog = QFileDialog(self)
+        filepath = FileDialog.getOpenFileName(self,"Open File")
+        FileDialog.setWindowTitle("Open File")
+        line_edit.setText(filepath)
+
+    def nepref_cal(self):
+        if(self.checkbox1.isChecked()):
+            pwd = os.getcwd()
+            father_path=os.path.abspath(os.path.dirname(pwd)+os.path.sep+".").replace("\\", "/")
+            matrix_path = father_path + '/backend/Cutoff/6.npy'
+            pdb_path = self.txt1.text().replace("\\",'/')
+            print("*****Job Information*****")
+            print("Algorithm: NEPRE-F")
+            print("Matrix: " + matrix_path)
+            print("Cutoff: 6Å")
+            print("*************************")
+            QApplication.processEvents()
+            tools.nepre_f(pdb_path,matrix_path,6)
+
+        else:
+            matrix_path = self.txt4.text().replace("\\",'/')
+            pdb_path = self.txt1.text().replace("\\",'/')
+            cutoff = int(self.combobox0.currentText()[:-2])
+            print("*****Job Information*****")
+            print("Algorithm: NEPRE-F")
+            print("Matrix: " + matrix_path)
+            print("Cutoff: " + str(cutoff) + 'Å')
+            print("*************************")
+            QApplication.processEvents()
+            tools.nepre_f(pdb_path,matrix_path,cutoff)
+            print("Job Finish!")
+            
+    def neprer_cal(self):
+        if(self.checkbox2.isChecked()):
+            pwd = os.getcwd()
+            father_path=os.path.abspath(os.path.dirname(pwd)+os.path.sep+".").replace("\\", "/")
+            matrix_path = father_path + '/backend/Radius/radius.npy'
+            radius_path = father_path + '/backend/Radius/mean_radius.txt'
+            pdb_path = self.txt2.text().replace("\\",'/')
+            print("*****Job Information*****")
+            print("Algorithm: NEPRE-R")
+            print("Matrix: " + matrix_path)
+            print("*************************")
+            QApplication.processEvents()
+            tools.nepre_r(pdb_path,matrix_path,radius_path)
+            print("Job Finish!")
+        else:
+            matrix_path = self.txt5.text().replace("\\",'/')
+            radius_path = self.txt6.text().replace("\\",'/')
+            pdb_path = self.txt2.text().replace("\\",'/')
+            print("*****Job Information*****")
+            print("Algorithm: NEPRE-R")
+            print("Matrix: " + matrix_path)
+            print("RadiusFile:" + radius_path)
+            print("*************************")
+            QApplication.processEvents()
+            tools.nepre_r(pdb_path,matrix_path,radius_path)
+            print("Job Finish!")
+
+
     def initUI(self):
+        
         # Nepre-F component
         self.txt1 = QLineEdit()
         self.txt1.setStyleSheet("background:linen")
@@ -241,6 +333,20 @@ class nepreUI(QWidget):
         layout.addLayout(layout01)
         layout.addLayout(layout02)
         self.setLayout(layout)
+
+        sys.stdout = OutLog(self.txt3, sys.stdout)
+        sys.stderr = OutLog(self.txt3, sys.stderr, QColor(255,0,0))
+
+        # singal and slot
+        # Nepre-F
+        self.button1.clicked.connect(lambda:self.OpenFile(self.txt1))
+        self.button3.clicked.connect(lambda:self.OpenFile(self.txt4))
+        self.button4.clicked.connect(self.nepref_cal)
+        # Nepre-R
+        self.button2.clicked.connect(lambda:self.OpenFile(self.txt2))
+        self.button5.clicked.connect(lambda:self.OpenFile(self.txt5))
+        self.button6.clicked.connect(lambda:self.OpenFile(self.txt6))
+        self.button7.clicked.connect(self.neprer_cal)
         
 class DataProcess(QWidget):
     def __init__(self,parent=None):
@@ -434,4 +540,5 @@ if __name__ == "__main__":
     t = TabWidget()
     t.show()
     app.exec_()
+    
 
