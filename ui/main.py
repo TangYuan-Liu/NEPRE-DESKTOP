@@ -560,9 +560,9 @@ class InstucAndInfo(QWidget):
 class TabWidget(QTabWidget):
     def __init__(self,parent=None):
         super(TabWidget,self).__init__(parent)
-        self.resize(1400,900)
+        self.resize(1300,900)
         self.nepre = nepreUI()
-        self.dataprocess = DataProcess()
+        #self.dataprocess = DataProcess()
         self.info = InstucAndInfo()
         self.addTab(self.nepre,"Structure Assessment")
         #self.addTab(self.dataprocess, "Data Analyze")
