@@ -128,6 +128,7 @@ class nepreUI(QWidget):
 
     def initUI(self):
         
+        ################## NEPRE-PART ######################
         # Nepre-F component
         self.txt1 = QLineEdit()
         self.txt1.setStyleSheet("background:linen")
@@ -224,6 +225,9 @@ class nepreUI(QWidget):
         layout0009 = QVBoxLayout()
         # Show pics on assessment part
         layout02 = QVBoxLayout()
+
+        # tools part
+        layout03 = QVBoxLayout()
 
         # energy matrix for Nepre-F
         self.groupbox5 = QGroupBox("Nepre-F")
@@ -330,37 +334,12 @@ class nepreUI(QWidget):
         self.groupbox4.setLayout(layout020)
         layout02.addWidget(self.lbl1)
         layout02.addWidget(self.groupbox4)
-        layout.addLayout(layout01)
-        layout.addLayout(layout02)
-        self.setLayout(layout)
-
-        sys.stdout = OutLog(self.txt3, sys.stdout)
-        sys.stderr = OutLog(self.txt3, sys.stderr, QColor(255,0,0))
-
-        # singal and slot
-        # Nepre-F
-        self.button1.clicked.connect(lambda:self.OpenFile(self.txt1))
-        self.button3.clicked.connect(lambda:self.OpenFile(self.txt4))
-        self.button4.clicked.connect(self.nepref_cal)
-        # Nepre-R
-        self.button2.clicked.connect(lambda:self.OpenFile(self.txt2))
-        self.button5.clicked.connect(lambda:self.OpenFile(self.txt5))
-        self.button6.clicked.connect(lambda:self.OpenFile(self.txt6))
-        self.button7.clicked.connect(self.neprer_cal)
         
-class DataProcess(QWidget):
-    def __init__(self,parent=None):
-        super(DataProcess,self).__init__()
-        self.InitUI()
-    
-    def sys_test(self):
-        for i in range(20):
-            print("Hello")
-            QApplication.processEvents()
+        
 
+        ####################################################
 
-    def InitUI(self):
-        # define component
+        ##################### TOOLS PART ###################
         self.button15 = QPushButton("Select Energy")
         self.button15.setStyleSheet("background:linen")
         self.button16 = QPushButton("Select RMSD")
@@ -470,7 +449,7 @@ class DataProcess(QWidget):
         layout0001_dp.addLayout(layout000010_dp)
         self.groupbox7.setLayout(layout0001_dp)
         self.groupbox7.setStyleSheet("background:lavender")
-        layout001_dp.addWidget(self.groupbox7)
+        #layout001_dp.addWidget(self.groupbox7)
 
         ######### 3D Visual ############
         layout00003_dp.addWidget(self.button17)
@@ -481,7 +460,7 @@ class DataProcess(QWidget):
         layout0003_dp.addLayout(layout000011_dp)
         self.groupbox8.setLayout(layout0003_dp)
         self.groupbox8.setStyleSheet("background:lavenderblush")
-        layout001_dp.addWidget(self.groupbox8)
+        #layout001_dp.addWidget(self.groupbox8)
 
         ######### Pair Distribution ########
         layout00004_dp.addWidget(self.button18)
@@ -492,7 +471,7 @@ class DataProcess(QWidget):
         layout0004_dp.addLayout(layout000012_dp)
         self.groupbox9.setLayout(layout0004_dp)
         self.groupbox9.setStyleSheet("background:lavender")
-        layout001_dp.addWidget(self.groupbox9)
+        #layout001_dp.addWidget(self.groupbox9)
 
         ########## Homology analysis ###########
         layout00005_dp.addWidget(self.button19)
@@ -506,7 +485,7 @@ class DataProcess(QWidget):
         layout0005_dp.addLayout(layout000013_dp)
         self.groupbox10.setLayout(layout0005_dp)
         self.groupbox10.setStyleSheet("background:lavenderblush")
-        layout002_dp.addWidget(self.groupbox10)
+        #layout002_dp.addWidget(self.groupbox10)
 
         ######### RMSD #########
         layout00007_dp.addWidget(self.button21)
@@ -520,7 +499,7 @@ class DataProcess(QWidget):
         layout0006_dp.addLayout(layout000014_dp)
         self.groupbox11.setLayout(layout0006_dp)
         self.groupbox11.setStyleSheet("background:lavender")
-        layout002_dp.addWidget(self.groupbox11)
+        #layout002_dp.addWidget(self.groupbox11)
 
         ######### Primary Structure Extract #######
         layout00009_dp.addWidget(self.button23)
@@ -531,26 +510,37 @@ class DataProcess(QWidget):
         layout0007_dp.addLayout(layout000015_dp)
         self.groupbox12.setLayout(layout0007_dp)
         self.groupbox12.setStyleSheet("background:lavenderblush")
-        layout002_dp.addWidget(self.groupbox12)
+        #layout002_dp.addWidget(self.groupbox12)
 
-        ######### Console #########
-        layout02_dp.addWidget(self.txt12)
-        self.groupbox13.setLayout(layout02_dp)
 
-        # setting layout
-        layout01_dp.addLayout(layout001_dp)
-        layout01_dp.addLayout(layout002_dp)
-        layout_dp.addLayout(layout01_dp)
-        layout_dp.addWidget(self.groupbox13)
+
+        #################### TOOLS PART FINISH #############
+        layout03.addWidget(self.groupbox7)
+        layout03.addWidget(self.groupbox8)
+        layout03.addWidget(self.groupbox9)
+        layout03.addWidget(self.groupbox10)
+        layout03.addWidget(self.groupbox11)
+        layout03.addWidget(self.groupbox12)
+        layout.addLayout(layout01)
+        layout.addLayout(layout02)
+        layout.addLayout(layout03)
+        self.setLayout(layout)
+
+        #################### System Standard Output Redirect ################# 
+        sys.stdout = OutLog(self.txt3, sys.stdout)
+        sys.stderr = OutLog(self.txt3, sys.stderr, QColor(255,0,0))
+
+        # singal and slot
+        # Nepre-F
+        self.button1.clicked.connect(lambda:self.OpenFile(self.txt1))
+        self.button3.clicked.connect(lambda:self.OpenFile(self.txt4))
+        self.button4.clicked.connect(self.nepref_cal)
+        # Nepre-R
+        self.button2.clicked.connect(lambda:self.OpenFile(self.txt2))
+        self.button5.clicked.connect(lambda:self.OpenFile(self.txt5))
+        self.button6.clicked.connect(lambda:self.OpenFile(self.txt6))
+        self.button7.clicked.connect(self.neprer_cal)
         
-        self.setLayout(layout_dp)
-
-        # outlog
-        sys.stdout = OutLog(self.txt12, sys.stdout)
-        sys.stderr = OutLog(self.txt12, sys.stderr, QColor(255,0,0))
-
-        self.button24.clicked.connect(self.sys_test)
-
 
 class InstucAndInfo(QWidget):
     def __init__(self,parent=None):
@@ -570,12 +560,12 @@ class InstucAndInfo(QWidget):
 class TabWidget(QTabWidget):
     def __init__(self,parent=None):
         super(TabWidget,self).__init__(parent)
-        self.resize(1000,900)
+        self.resize(1400,900)
         self.nepre = nepreUI()
         self.dataprocess = DataProcess()
         self.info = InstucAndInfo()
         self.addTab(self.nepre,"Structure Assessment")
-        self.addTab(self.dataprocess, "Data Analyze")
+        #self.addTab(self.dataprocess, "Data Analyze")
         self.addTab(self.info, "Instruction && Information")
         title = "NEPRE--Scoring Function Based on Neighbourhood Preference Statistics"
         self.setWindowTitle(title)
@@ -588,5 +578,3 @@ if __name__ == "__main__":
     t = TabWidget()
     t.show()
     app.exec_()
-    
-
