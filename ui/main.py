@@ -353,6 +353,12 @@ class DataProcess(QWidget):
         super(DataProcess,self).__init__()
         self.InitUI()
     
+    def sys_test(self):
+        for i in range(20):
+            print("Hello")
+            QApplication.processEvents()
+
+
     def InitUI(self):
         # define component
         self.button15 = QPushButton("Select Energy")
@@ -373,6 +379,18 @@ class DataProcess(QWidget):
         self.button22 = QPushButton("Select Target")
         self.button22.setStyleSheet("background:linen")
         self.button23 = QPushButton("Select PDB")
+        self.button24 = QPushButton("Go")
+        self.button24.setStyleSheet("background:lightsteelblue")
+        self.button25 = QPushButton("Go")
+        self.button25.setStyleSheet("background:lightsteelblue")
+        self.button26 = QPushButton("Go")
+        self.button26.setStyleSheet("background:lightsteelblue")
+        self.button27 = QPushButton("Go")
+        self.button27.setStyleSheet("background:lightsteelblue")
+        self.button28 = QPushButton("Go")
+        self.button28.setStyleSheet("background:lightsteelblue")
+        self.button29 = QPushButton("Go")
+        self.button29.setStyleSheet("background:lightsteelblue")
         # console
         self.txt12 = QTextEdit()
         # Line Edit
@@ -431,6 +449,12 @@ class DataProcess(QWidget):
         layout00007_dp = QHBoxLayout()
         layout00008_dp = QHBoxLayout()
         layout00009_dp = QHBoxLayout()
+        layout000010_dp = QHBoxLayout()
+        layout000011_dp = QHBoxLayout()
+        layout000012_dp = QHBoxLayout()
+        layout000013_dp = QHBoxLayout()
+        layout000014_dp = QHBoxLayout()
+        layout000015_dp = QHBoxLayout()
 
 
         # layout add component
@@ -439,8 +463,11 @@ class DataProcess(QWidget):
         layout00001_dp.addWidget(self.txt13)
         layout00002_dp.addWidget(self.button16)
         layout00002_dp.addWidget(self.txt14)
+        layout000010_dp.addSpacing(350)
+        layout000010_dp.addWidget(self.button24)
         layout0001_dp.addLayout(layout00001_dp)
         layout0001_dp.addLayout(layout00002_dp)
+        layout0001_dp.addLayout(layout000010_dp)
         self.groupbox7.setLayout(layout0001_dp)
         self.groupbox7.setStyleSheet("background:lavender")
         layout001_dp.addWidget(self.groupbox7)
@@ -448,7 +475,10 @@ class DataProcess(QWidget):
         ######### 3D Visual ############
         layout00003_dp.addWidget(self.button17)
         layout00003_dp.addWidget(self.txt15)
+        layout000011_dp.addSpacing(350)
+        layout000011_dp.addWidget(self.button25)
         layout0003_dp.addLayout(layout00003_dp)
+        layout0003_dp.addLayout(layout000011_dp)
         self.groupbox8.setLayout(layout0003_dp)
         self.groupbox8.setStyleSheet("background:lavenderblush")
         layout001_dp.addWidget(self.groupbox8)
@@ -456,7 +486,10 @@ class DataProcess(QWidget):
         ######### Pair Distribution ########
         layout00004_dp.addWidget(self.button18)
         layout00004_dp.addWidget(self.txt16)
+        layout000012_dp.addSpacing(350)
+        layout000012_dp.addWidget(self.button26)
         layout0004_dp.addLayout(layout00004_dp)
+        layout0004_dp.addLayout(layout000012_dp)
         self.groupbox9.setLayout(layout0004_dp)
         self.groupbox9.setStyleSheet("background:lavender")
         layout001_dp.addWidget(self.groupbox9)
@@ -466,8 +499,11 @@ class DataProcess(QWidget):
         layout00005_dp.addWidget(self.txt17)
         layout00006_dp.addWidget(self.button20)
         layout00006_dp.addWidget(self.txt18)
+        layout000013_dp.addSpacing(350)
+        layout000013_dp.addWidget(self.button27)
         layout0005_dp.addLayout(layout00005_dp)
         layout0005_dp.addLayout(layout00006_dp)
+        layout0005_dp.addLayout(layout000013_dp)
         self.groupbox10.setLayout(layout0005_dp)
         self.groupbox10.setStyleSheet("background:lavenderblush")
         layout002_dp.addWidget(self.groupbox10)
@@ -477,8 +513,11 @@ class DataProcess(QWidget):
         layout00007_dp.addWidget(self.txt19)
         layout00008_dp.addWidget(self.button22)
         layout00008_dp.addWidget(self.txt20)
+        layout000014_dp.addSpacing(350)
+        layout000014_dp.addWidget(self.button28)
         layout0006_dp.addLayout(layout00007_dp)
         layout0006_dp.addLayout(layout00008_dp)
+        layout0006_dp.addLayout(layout000014_dp)
         self.groupbox11.setLayout(layout0006_dp)
         self.groupbox11.setStyleSheet("background:lavender")
         layout002_dp.addWidget(self.groupbox11)
@@ -486,7 +525,10 @@ class DataProcess(QWidget):
         ######### Primary Structure Extract #######
         layout00009_dp.addWidget(self.button23)
         layout00009_dp.addWidget(self.txt21)
+        layout000015_dp.addSpacing(350)
+        layout000015_dp.addWidget(self.button29)
         layout0007_dp.addLayout(layout00009_dp)
+        layout0007_dp.addLayout(layout000015_dp)
         self.groupbox12.setLayout(layout0007_dp)
         self.groupbox12.setStyleSheet("background:lavenderblush")
         layout002_dp.addWidget(self.groupbox12)
@@ -502,6 +544,12 @@ class DataProcess(QWidget):
         layout_dp.addWidget(self.groupbox13)
         
         self.setLayout(layout_dp)
+
+        # outlog
+        sys.stdout = OutLog(self.txt12, sys.stdout)
+        sys.stderr = OutLog(self.txt12, sys.stderr, QColor(255,0,0))
+
+        self.button24.clicked.connect(self.sys_test)
 
 
 class InstucAndInfo(QWidget):
