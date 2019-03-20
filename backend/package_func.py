@@ -55,6 +55,10 @@ def nepre_f(pdb_path,matrix_path,cutoff):
         for i in range(len(correct_list)):
             print correct_list[i] + ' ', eng_list[i] 
         print("*****************")
+        print("*****Prediction*****")
+        print("The prediction is:")
+        print correct_list[eng_list.index(min(eng_list))]
+        print("********************")
         
 
 ############### NEPRE-R ###################

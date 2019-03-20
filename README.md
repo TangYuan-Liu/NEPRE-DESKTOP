@@ -2,6 +2,11 @@
 <img style="flex-grow:1; flex-shrink:1; border: 0px solid black;" src="./pics/logo.jpg" width="210" />
 </div>
 
+![](https://img.shields.io/badge/license-GNU-seagreen.svg?style=flat-square)
+![](https://img.shields.io/badge/version-V2.0-blue.svg?style=flat-square)
+![](https://img.shields.io/badge/language-Python-orange.svg?style=flat-square)
+![](https://img.shields.io/badge/platform-Linux|Windows-lightgrey.svg?style=flat-square)
+
 
 [LiuLab]() | [Article]() | [WebServer]() | [Code Package]() | [Executable Program]()
 
@@ -10,7 +15,7 @@ Introduction
 ---------------
 An executable program for NEPRE.  
 <div align="center">
-<img style="flex-grow:1; flex-shrink:1; border: 0px solid black;" src="./pics/UI.JPG" width="400" />
+<img style="flex-grow:1; flex-shrink:1; border: 0px solid black;" src="./pics/UI2.JPG" width="400" />
 </div>
 
 

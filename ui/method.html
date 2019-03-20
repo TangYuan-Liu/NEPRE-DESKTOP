@@ -5,97 +5,107 @@
     <title>Nepre-Introduction</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <script>
-
-     var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-23019901-1']);
-      _gaq.push(['_setDomainName', "bootswatch.com"]);
-        _gaq.push(['_setAllowLinker', true]);
-      _gaq.push(['_trackPageview']);
-
-     (function() {
-       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-     })();
-
-    </script>
   </head>
   <body>
     <div class="page-header" id="banner" style = "margin-left: 80px">
         <div class="row">
           <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1>Method</h1>
+            <h1>System Help</h1>
           </div>
         </div>
     </div>
     <div style = "margin-left:80px; margin-top:40px; margin-right:80px">
-      <h4 style = "color:cornflowerblue">Introduction</h4>
+      <h2 style = "color:cornflowerblue">Usage</h2>
       <hr></hr>
     </div>
     <div style = "margin-left:120px; margin-top:40px; margin-right:120px;text-align: justify">
         <p>
-            PDB(Protein Data Bank) maintains the world's largest protein database. By analyzing the it, 
-            we found that amino acids pairs have a very strong tendency in spatial distribution. Following two figure
-            show the tendency in a contour map.
+            <b>NEPRE-F Prediction</b>
         </p>
-        <div style = "margin-bottom:2px;text-align: center">
-            <div class="row">
-                <div class="col-lg-6">
-                    <img src="../pics/fig1.png" width="60%" height="40%"></img>
-                </div>
-                <div class="col-lg-6">
-                    <img src="../pics/fig2.png" width="60%" height="40%"></img>
-                </div>
-              </div>
-        </div>
-        <p>
-            Based on the research, we establised the <b>Spherical Coordinate System</b> and analyzed different
-            kind of amino acid pairs. The coordinate system is shown in the following figure.
-        </p>
-        <div style = "text-align: center">
-            <img src="../pics/fig3.png" width="60%" height="30%"></img>
-        </div>
-        <p>
-            For amino acids in a protein, every two amino acids can be regard as a pair. For the evaluation of the entire structure, 
-            not all pairs have positive effect. In fact, pairings that are too far can have a negative impact on the evaluation.
-            We propose a "<b>cutoff</b>" in that background. According to the different settings of cutoff, 
-            Nepre generates two branching algorithms, <b>Nepre-R</b> and <b>Nepre-F</b>.
-        </p>
-        <p>
-            <b>Nepre-R</b> uses the radius sum of amino acid pair as the cutoff. Distance lower than the cutoff will be
-            regard as the effective pair. We use <b>30,000</b> high-resolution protein and get the statistal result
-            of each kind amino acid. Then, gaussian function is used to fit the statistical data and use mean value
-            as the radius. Following figure shows the radius distribution. Details can be found 
-            at <a href="https://github.com/TangYuan-Liu/Nepre/tree/master/Radius">
-               Radius Value</a>. 
             
-        </p>
-        <div style = "text-align: center">
-            <img src="../pics/fig4.png" width="60%" height="40%"></img>
-        </div>
         <p>
-            <b>Nepre-F</b> uses a more universal value as the cutoff. Experiment shows that setting cutoff to <b>6 angstrom</b>
-            can get the best native structure recognition. The pearson coefficient distribution are shown in the following
-            figure(Using decoy set <b>3DRobot</b> from <a href="https://zhanglab.ccmb.med.umich.edu/decoys/">zhanglab</a>). 
+            1. Choose a PDB file(Use .pdb file format).
         </p>
-        <div style = "text-align: center">
-            <img src="../pics/fig5.png" width="60%" height="40%"></img>
-        </div>
+        <p>
+            2. Set the energymatrix or use default setting(cutoff=6).
+        </p>
+        <p>
+            3. Click "GO" and start to predict.
+        </p>
     </div>
 
-    <div style = "margin-left:80px; margin-top:40px; margin-right:80px">
-        <h4 style = "color:cornflowerblue">Summary</h4>
-        <hr></hr>
-    </div>
     <div style = "margin-left:120px; margin-top:40px; margin-right:120px;text-align: justify">
-        Expement results show Nepre performs well on many decoy sets. It is a efficient and stable scoring function
-        for protein structure assessment. Following figure shows a example of recognition the native structure on 1BYIA.
-        <div style = "text-align: center">
-            <img src="../pics/fig6.png" width="60%" height="40%"></img>
+            <p>
+                <b>NEPRE-R Prediction</b>
+            </p>
+                
+            <p>
+                1. Choose a PDB file(Use .pdb file format).
+            </p>
+            <p>
+                2. Choose the radius file or use default(System Recommended).
+            </p>
+            <p>
+                3. Choose the energy matrix.
+            </p>
+            <p>
+                4. Click "GO" and start to prdict.
+            </p>
         </div>
-    </div>
-
+    
+        <div style = "margin-left:120px; margin-top:40px; margin-right:120px;text-align: justify">
+                <p>
+                    <b>Energy Matrix Generate</b>
+                </p>
+                <p>
+                    Both NEPRE-F and NEPRE-R have their own energy matrix. In addition to the default values 
+                    provided by this system, we also allow users to calculate their own. Users can generate 
+                    energy matrix by following steps:
+                </p>    
+                <p>
+                    1. Choose which algorithm your energy matrix are used.
+                </p>
+                <p>
+                    2. Set the PDB dataset path.
+                </p>
+                <p>
+                    3. Input the radius file(NEPRE-R) or set the cutoff(NEPRE-F)
+                </p>
+                <p>
+                    4. Click "GO" and start to generate.
+                </p>
+                <p>
+                    The energy matrix will be save as <b>.npy</b> format in the workding directory <b>"cache"</b>.
+                </p>
+            </div>
+            <div style = "margin-left:120px; margin-top:40px; margin-right:120px;text-align: justify">
+                    <p>
+                        <b>Basic Plot</b>
+                    </p>
+                    <p>
+                        Both NEPRE-F and NEPRE-R have their own energy matrix. In addition to the default values 
+                        provided by this system, we also allow users to calculate their own. Users can generate 
+                        energy matrix by following steps:
+                    </p>    
+                    <p>
+                        1. Choose which algorithm your energy matrix are used.
+                    </p>
+                    <p>
+                        2. Set the PDB dataset path.
+                    </p>
+                    <p>
+                        3. Input the radius file(NEPRE-R) or set the cutoff(NEPRE-F)
+                    </p>
+                    <p>
+                        4. Click "GO" and start to generate.
+                    </p>
+                    <p>
+                        The energy matrix will be save as <b>.npy</b> format in the workding directory <b>"cache"</b>.
+                    </p>
+                </div>
+        
+        
+        
 
 
 <div class="text" style=" text-align:center;">Building 9, East Zone, ZPark II, No.10 East Xibeiwang Road, Haidian District, Beijing 100193, China</div>
