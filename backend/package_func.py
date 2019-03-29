@@ -6,6 +6,7 @@ import Radius.Nepre_R as nr
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4.QtWebKit import *
+import matplotlib.pyplot as plt
 
 ############## NEPRE-F ##################
 def nepre_f(pdb_path,matrix_path,cutoff):
@@ -112,6 +113,56 @@ def nepre_r(pdb_path,matrix_path,radius_path):
         for i in range(len(correct_list)):
             print correct_list[i] + ' ', eng_list[i] 
         print("*****************")
+
+
+def plot_bar(bar_dict):
+    #data = sorted(bar_dict.items(), lambda x, y: cmp(x[1], y[1]))
+    data = [(k,bar_dict[k]) for k in sorted(bar_dict.keys())] 
+    keys = []
+    values = []
+    for i in range(len(data)):
+        keys.append(data[i][0])
+        values.append(data[i][1])
+
+    plt.rcParams['savefig.dpi'] = 90
+    plt.rcParams['figure.figsize'] = [12.0,8.0]
+    plt.bar(keys,values,width=0.5)
+    plt.xticks(keys,rotation=45,fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.xlabel("Type",fontsize=16)
+    plt.ylabel("Amount",fontsize=16)
+     
+    plt.savefig("../cache/pics/latest.png")
+    plt.close()
+
+
+def primary_extract(f):
+    primary = []
+    current_num = None
+    amino_dict = {}
+
+    for line in f.readlines():
+        temp = line.strip().split()
+        if(temp[0] != "ATOM"):
+            continue
+        line = nf.extract_Data(line)
+        residue_num = line[6]
+        residue_name = line[4]
+        if(current_num is None):
+            primary.append(residue_name)
+            current_num = residue_num
+        else:
+            if(current_num != residue_num):
+                primary.append(residue_name)
+                current_num = residue_num
+
+    for d in primary:
+        if(d not in amino_dict):
+            amino_dict[d] = 1
+        else:
+            amino_dict[d] += 1
+    
+    return primary,amino_dict
             
 
 

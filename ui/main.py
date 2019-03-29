@@ -71,6 +71,29 @@ class nepreUI(QWidget):
         FileDialog.setWindowTitle("Open File")
         line_edit.setText(filepath)
 
+    def ShowPics(self):
+        FileDialog = QDialog(self)
+        pic_txt = QLabel(self)
+        la = QHBoxLayout()
+        pic_txt.setPixmap(QPixmap("../cache/pics/latest.png"))
+        la.addWidget(pic_txt)
+        FileDialog.setLayout(la)
+        FileDialog.setGeometry(300,300,640,480)
+        FileDialog.setWindowTitle("Amino Acid Statistics")
+        FileDialog.exec_()
+
+    def PrimaryExtract(self):
+        pdb_path = self.txt21.text().replace("\\",'/')
+        f = open(pdb_path)
+        primary_seq, amino_dict = tools.primary_extract(f)
+        tools.plot_bar(amino_dict)
+        print("Primary Structure Sequence:")
+        print primary_seq
+        print("Amino Acid Statistics:")
+        print amino_dict
+        self.ShowPics()
+
+
     def nepref_cal(self):
         if(self.checkbox1.isChecked()):
             pwd = os.getcwd()
@@ -540,6 +563,10 @@ class nepreUI(QWidget):
         self.button5.clicked.connect(lambda:self.OpenFile(self.txt5))
         self.button6.clicked.connect(lambda:self.OpenFile(self.txt6))
         self.button7.clicked.connect(self.neprer_cal)
+
+        # primary extract
+        self.button23.clicked.connect(lambda:self.OpenFile(self.txt21))
+        self.button29.clicked.connect(self.PrimaryExtract)
         
 
 class InstucAndInfo(QWidget):
