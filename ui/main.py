@@ -71,11 +71,30 @@ class nepreUI(QWidget):
         FileDialog.setWindowTitle("Open File")
         line_edit.setText(filepath)
 
-    def ShowPics(self):
+    def pearson(self):
+        eng_path = self.txt13.text().replace("\\",'/')
+        rmsd_path = self.txt14.text().replace("\\",'/')
+        eng = []
+        rmsd = []
+        f = open(eng_path)
+        for line in f.readlines():
+            temp = line.strip().split()
+            eng.append(float(temp[0]))
+        f.close()
+        f = open(rmsd_path)
+        for line in f.readlines():
+            temp = line.strip().split()
+            rmsd.append(float(temp[0]))
+        f.close()
+        tools.plot_scatter(eng,rmsd)
+        self.ShowPics('pearson')
+
+
+    def ShowPics(self,name):
         FileDialog = QDialog(self)
         pic_txt = QLabel(self)
         la = QHBoxLayout()
-        pic_txt.setPixmap(QPixmap("../cache/pics/latest.png"))
+        pic_txt.setPixmap(QPixmap("../cache/pics/" + name + '.png'))
         la.addWidget(pic_txt)
         FileDialog.setLayout(la)
         FileDialog.setGeometry(300,300,640,480)
@@ -91,8 +110,60 @@ class nepreUI(QWidget):
         print primary_seq
         print("Amino Acid Statistics:")
         print amino_dict
-        self.ShowPics()
+        self.ShowPics('statistic')
 
+    def RMSD(self):
+        ori_path = self.txt19.text().replace("\\",'/')
+        tar_path = self.txt20.text().replace("\\",'/')
+
+        print("Calculating the RMSD:")
+        print(ori_path)
+        print(tar_path)
+
+        f = open("../cache/pymol/rmsd.pml",'w')
+        f.write("load " + ori_path + ', ori' + '\n')
+        f.write("load " + tar_path + ', tar' + '\n')
+        f.write("align ori, tar")
+        f.close()
+        os.system("PyMOLWin.exe ../cache/pymol/rmsd.pml")
+
+    def Show_3D(self):
+        pdb_path = self.txt15.text().replace("\\",'/')
+        print("Showing 3D Visual:")
+        print(pdb_path)
+
+        f = open("../cache/pymol/3d.pml",'w')
+        f.write("load " + pdb_path)
+        f.close()
+        os.system("PyMOLWin.exe ../cache/pymol/3d.pml")
+
+    def match_segment(self):
+        ori_path = self.txt17.text().replace("\\",'/')
+        tar_path = self.txt18.text().replace("\\",'/')
+        print("Find match segment:")
+        print(ori_path)
+        print(tar_path)
+
+        f = open("../cache/pymol/match.pml",'w')
+        f.write("load " + ori_path + ", na" + '\n')
+        f.write("load " + tar_path + ", dcy" + '\n')
+        f.write("super na, dcy, object=aln" + '\n')
+        f.write("python" + '\n')
+        f.write("pairs = cmd.get_raw_alignment('aln')" + '\n')
+        f.write("print pairs[0], pairs[-1]" + '\n')
+        f.write("print pairs[0][1][1], pairs[-1][1][1], pairs[0][1][1]-pairs[-1][1][1]" + '\n')
+        line = '"sel1","na and index %d-%d"%(pairs[0][0][1],pairs[-1][0][1])'
+        f.write("cmd.select(" + line + ')' + '\n')
+        f.write('cmd.save("../cache/files/match_segment.pdb","sel1")' + '\n')
+        f.write("python end")
+        f.close()
+        pwd = os.getcwd()
+        father_path=os.path.abspath(os.path.dirname(pwd)+os.path.sep+".").replace("\\", "/")
+        results_path = father_path + '/cache/files/match_segment.pdb'
+        print("See results at:" + results_path)
+        os.system("PyMOLWin.exe -c ../cache/pymol/match.pml")
+
+    
 
     def nepref_cal(self):
         if(self.checkbox1.isChecked()):
@@ -567,6 +638,25 @@ class nepreUI(QWidget):
         # primary extract
         self.button23.clicked.connect(lambda:self.OpenFile(self.txt21))
         self.button29.clicked.connect(self.PrimaryExtract)
+
+        # rmsd
+        self.button21.clicked.connect(lambda:self.OpenFile(self.txt19))
+        self.button22.clicked.connect(lambda:self.OpenFile(self.txt20))
+        self.button28.clicked.connect(self.RMSD)
+
+        # 3D View
+        self.button17.clicked.connect(lambda:self.OpenFile(self.txt15))
+        self.button25.clicked.connect(self.Show_3D)
+
+        # segment extract
+        self.button19.clicked.connect(lambda:self.OpenFile(self.txt17))
+        self.button20.clicked.connect(lambda:self.OpenFile(self.txt18))
+        self.button27.clicked.connect(self.match_segment)
+
+        # basic plot
+        self.button15.clicked.connect(lambda:self.OpenFile(self.txt13))
+        self.button16.clicked.connect(lambda:self.OpenFile(self.txt14))
+        self.button24.clicked.connect(self.pearson)
         
 
 class InstucAndInfo(QWidget):

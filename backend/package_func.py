@@ -129,11 +129,23 @@ def plot_bar(bar_dict):
     plt.bar(keys,values,width=0.5)
     plt.xticks(keys,rotation=45,fontsize=14)
     plt.yticks(fontsize=14)
-    plt.xlabel("Type",fontsize=16)
-    plt.ylabel("Amount",fontsize=16)
+    plt.xlabel("Type",fontsize=18)
+    plt.ylabel("Amount",fontsize=18)
      
-    plt.savefig("../cache/pics/latest.png")
+    plt.savefig("../cache/pics/statistic.png")
     plt.close()
+
+def plot_scatter(eng,rmsd):
+    plt.rcParams['savefig.dpi'] = 90
+    plt.rcParams['figure.figsize'] = [12.0,8.0]
+    plt.scatter(rmsd,eng,color='r',marker='.')
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.xlabel("RMSD",fontsize=18)
+    plt.ylabel("Energy",fontsize=18)
+    plt.savefig("../cache/pics/pearson.png")
+    plt.close()
+
 
 
 def primary_extract(f):
