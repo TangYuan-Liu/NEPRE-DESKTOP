@@ -96,6 +96,13 @@ class nepreUI(QWidget):
         tools.plot_scatter(eng,rmsd)
         self.ShowPics('pearson')
 
+    def matrix_nepref(self):
+        dataset_path = self.txt7.text().replace("\\",'/')
+        cutoff = int(self.combobox0.currentText()[:-2])
+        print("Start to generate energymatrix using NEPRE-F")
+        QApplication.processEvents()
+        tools.nepref_eng(dataset_path,cutoff)
+
     def matrix_neprer(self):
         dataset_path = self.txt9.text().replace("\\",'/')
         radius_path = self.txt11.text().replace("\\",'/')
@@ -683,6 +690,11 @@ class nepreUI(QWidget):
         self.button15.clicked.connect(lambda:self.OpenFile(self.txt13))
         self.button16.clicked.connect(lambda:self.OpenFile(self.txt14))
         self.button24.clicked.connect(self.pearson)
+
+        # NEPRE-F EnergyMatrix
+        self.button8.clicked.connect(lambda:self.OpenFile(self.txt7))
+        self.button9.clicked.connect(lambda:self.OpenFile(self.txt8))
+        self.button13.clicked.connect(self.matrix_nepref)
 
         # NEPRE-R EnergyMatrix
         self.button10.clicked.connect(lambda:self.OpenFile(self.txt9))
