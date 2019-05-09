@@ -56,7 +56,7 @@ class AminoAcid:
         rho = np.sqrt(x**2+y**2+z**2)
         theta = np.arccos(z/rho)
         phi = np.arctan2(y,x)
-        return rho,theta,phi
+        return rho,theta,phi,x,y,z
 
     def Check(self):
         if(self.SideChainAtomAmount == 0):
