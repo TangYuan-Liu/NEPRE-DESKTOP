@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/license-GNU-seagreen.svg?style=flat-square)
 ![](https://img.shields.io/badge/version-V2.0-blue.svg?style=flat-square)
-![](https://img.shields.io/badge/language-Python-seagreen.svg?style=flat-square)
+![](https://img.shields.io/badge/language-Python-orange.svg?style=flat-square)
 ![](https://img.shields.io/badge/platform-Linux|Windows-blue.svg?style=flat-square&logo=windows)
 
 

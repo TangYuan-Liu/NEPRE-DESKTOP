@@ -71,6 +71,13 @@ class nepreUI(QWidget):
         FileDialog.setWindowTitle("Open File")
         line_edit.setText(filepath)
 
+    def PairDistribute(self):
+        a1 = self.combobox2.currentText()
+        a2 = self.combobox3.currentText()
+        print("Showing Pair:" + a1 + '-' + a2)
+        os.system("PyMOLWin.exe ../dataset/" + str(a1) + '-' + str(a2) + '.pdb')
+
+
     def pearson(self):
         eng_path = self.txt13.text().replace("\\",'/')
         rmsd_path = self.txt14.text().replace("\\",'/')
@@ -89,6 +96,13 @@ class nepreUI(QWidget):
         tools.plot_scatter(eng,rmsd)
         self.ShowPics('pearson')
 
+    def matrix_neprer(self):
+        dataset_path = self.txt9.text().replace("\\",'/')
+        radius_path = self.txt11.text().replace("\\",'/')
+        print("Start to generate energymatrix using NEPRE-R")
+        QApplication.processEvents()
+        tools.neprer_eng(dataset_path, radius_path)
+        
 
     def ShowPics(self,name):
         FileDialog = QDialog(self)
@@ -222,6 +236,9 @@ class nepreUI(QWidget):
 
     def initUI(self):
         
+        # amino list
+        self.amino_list = ['ALA', 'ARG', 'ASN', 'ASP', 'CYS', 'GLN', 'GLU', 'GLY', 'HIS', 'ILE', 'LEU', 'LYS', 'MET', 'PHE', 'PRO', 'SER', 'THR', 'TRP', 'TYR', 'VAL']
+
         ################## NEPRE-PART ######################
         # Nepre-F component
         self.txt1 = QLineEdit()
@@ -440,9 +457,18 @@ class nepreUI(QWidget):
         self.button16.setStyleSheet("background:linen")
         self.button17 = QPushButton("Select PDB")
         self.button17.setStyleSheet("background:wheat")
-        self.button18 = QPushButton("Select PDB")
-        self.button18.setStyleSheet("background:wheat")
-        self.button18.setStyleSheet("background:linen")
+        #self.button18 = QPushButton("Select PDB")
+        #self.button18.setStyleSheet("background:wheat")
+        #self.button18.setStyleSheet("background:linen")
+
+        self.combobox2 = QComboBox()
+        self.combobox2.setStyleSheet("background:wheat")
+        self.combobox3 = QComboBox()
+        self.combobox3.setStyleSheet("background:wheat")
+        for k in self.amino_list:
+            self.combobox2.addItem(k)
+            self.combobox3.addItem(k)
+        
         self.button19 = QPushButton("Select Origin")
         self.button19.setStyleSheet("background:wheat")
         self.button20 = QPushButton("Select Target")
@@ -557,8 +583,8 @@ class nepreUI(QWidget):
         #layout001_dp.addWidget(self.groupbox8)
 
         ######### Pair Distribution ########
-        layout00004_dp.addWidget(self.button18)
-        layout00004_dp.addWidget(self.txt16)
+        layout00004_dp.addWidget(self.combobox2)
+        layout00004_dp.addWidget(self.combobox3)
         layout000012_dp.addSpacing(350)
         layout000012_dp.addWidget(self.button26)
         layout0004_dp.addLayout(layout00004_dp)
@@ -657,6 +683,15 @@ class nepreUI(QWidget):
         self.button15.clicked.connect(lambda:self.OpenFile(self.txt13))
         self.button16.clicked.connect(lambda:self.OpenFile(self.txt14))
         self.button24.clicked.connect(self.pearson)
+
+        # NEPRE-R EnergyMatrix
+        self.button10.clicked.connect(lambda:self.OpenFile(self.txt9))
+        self.button11.clicked.connect(lambda:self.OpenFile(self.txt10))
+        self.button12.clicked.connect(lambda:self.OpenFile(self.txt11))
+        self.button14.clicked.connect(self.matrix_neprer)
+    
+        # pair distribute
+        self.button26.clicked.connect(self.PairDistribute)
         
 
 class InstucAndInfo(QWidget):

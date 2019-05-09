@@ -215,7 +215,7 @@ def calculate_Energy(df,matrix,radiusDict):
                 dis = UseAA_list[m].DistanceBetweenAA(UseAA_list[n].center)
                 radiusSum = radiusDict[UseAA_list[m].name] + radiusDict[UseAA_list[n].name]
                 if(dis <= radiusSum):#If the distance between two amino acid less than 10, we believe the two amino acid have interaction  
-                    rho,theta,phi = UseAA_list[m].ChangeCoordinate(UseAA_list[n].center)
+                    rho,theta,phi,_,_,_ = UseAA_list[m].ChangeCoordinate(UseAA_list[n].center)
                     theta = min(int(math.floor(theta*20/np.pi)),19)
                     phi = min(int(math.floor(phi*10/np.pi) + 10),19)
                     E += matrix[UseAA_list[m].name][UseAA_list[n].name][theta][phi] / rho 
