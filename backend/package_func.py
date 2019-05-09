@@ -388,7 +388,7 @@ def single_pdb_scan_neprer(f,radius_dict):
         csDict[UseAA_list[i].name] += 1
     return res,ccDict,csDict
 
-def neprer_eng(dataset_path,radius_file):
+def neprer_eng(dataset_path,radius_file,save_path):
     ccDict={"ALA":{},"VAL":{},"LEU":{},"ILE":{},"PHE":{},\
             "TRP":{},"MET":{},"PRO":{},"GLY":{},"SER":{},\
             "THR":{},"CYS":{},"TYR":{},"ASN":{},"GLN":{},\
@@ -451,11 +451,11 @@ def neprer_eng(dataset_path,radius_file):
     cor_file_path = "../cache/temp/coordinate.txt"
     print("AminoAcid pair scanning finished, start to generate energymatrix.")
     QApplication.processEvents()
-    generate_engmatrix_neprer(cor_file_path,ccDict)
+    generate_engmatrix_neprer(cor_file_path,ccDict,save_path)
     print("Finished!")
     return True
 
-def generate_engmatrix_neprer(coordinate_file,ccDict):
+def generate_engmatrix_neprer(coordinate_file,ccDict,save_path):
     cdDict={"ALA":{},"VAL":{},"LEU":{},"ILE":{},"PHE":{},\
             "TRP":{},"MET":{},"PRO":{},"GLY":{},"SER":{},\
             "THR":{},"CYS":{},"TYR":{},"ASN":{},"GLN":{},\
@@ -499,7 +499,9 @@ def generate_engmatrix_neprer(coordinate_file,ccDict):
             cdDict[amino1][amino2] = cdDict[amino1][amino2] / Integral
             cdDict[amino1][amino2] = ccDict[amino1][amino2] - np.log(cdDict[amino1][amino2])
     
-    f = open("../cache/temp/latest.npy",'wb')
+    if(save_path[-1] != "/"):
+        save_path += '/'
+    f = open(save_path + "latest.npy",'wb')
     for amino1 in sort_list:
         for amino2 in sort_list:
             np.save(f, cdDict[amino1][amino2])
@@ -652,7 +654,7 @@ def single_pdb_scan_nepref(f,cutoff):
     return res,ccDict,csDict        
         
 
-def generate_engmatrix_nepref(coordinate_file,ccDict):
+def generate_engmatrix_nepref(coordinate_file,ccDict,save_path):
     cdDict={"ALA":{},"VAL":{},"LEU":{},"ILE":{},"PHE":{},\
             "TRP":{},"MET":{},"PRO":{},"GLY":{},"SER":{},\
             "THR":{},"CYS":{},"TYR":{},"ASN":{},"GLN":{},\
@@ -695,8 +697,9 @@ def generate_engmatrix_nepref(coordinate_file,ccDict):
             Integral = Integral / Integral.sum()
             cdDict[amino1][amino2] = cdDict[amino1][amino2] / Integral
             cdDict[amino1][amino2] = ccDict[amino1][amino2] - np.log(cdDict[amino1][amino2])
-    
-    f = open("../cache/temp/latest.npy",'wb')
+    if(save_path[-1] != "/"):
+        save_path += '/'
+    f = open(save_path + "latest.npy",'wb')
     for amino1 in sort_list:
         for amino2 in sort_list:
             np.save(f, cdDict[amino1][amino2])
@@ -705,7 +708,7 @@ def generate_engmatrix_nepref(coordinate_file,ccDict):
 
 
 
-def nepref_eng(dataset_path,cutoff):
+def nepref_eng(dataset_path,cutoff,save_path):
     ccDict={"ALA":{},"VAL":{},"LEU":{},"ILE":{},"PHE":{},\
             "TRP":{},"MET":{},"PRO":{},"GLY":{},"SER":{},\
             "THR":{},"CYS":{},"TYR":{},"ASN":{},"GLN":{},\
@@ -762,7 +765,7 @@ def nepref_eng(dataset_path,cutoff):
     cor_file_path = "../cache/temp/coordinate.txt"
     print("AminoAcid pair scanning finished, start to generate energymatrix.")
     QApplication.processEvents()
-    generate_engmatrix_nepref(cor_file_path,ccDict)
+    generate_engmatrix_nepref(cor_file_path,ccDict,save_path)
     print("Finished!")
     return True
     

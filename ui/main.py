@@ -99,16 +99,18 @@ class nepreUI(QWidget):
     def matrix_nepref(self):
         dataset_path = self.txt7.text().replace("\\",'/')
         cutoff = int(self.combobox0.currentText()[:-2])
+        save_path = self.txt8.text().replace("\\",'/')
         print("Start to generate energymatrix using NEPRE-F")
         QApplication.processEvents()
-        tools.nepref_eng(dataset_path,cutoff)
+        tools.nepref_eng(dataset_path,cutoff,save_path)
 
     def matrix_neprer(self):
         dataset_path = self.txt9.text().replace("\\",'/')
         radius_path = self.txt11.text().replace("\\",'/')
+        save_path = self.txt10.text().replace("\\",'/')
         print("Start to generate energymatrix using NEPRE-R")
         QApplication.processEvents()
-        tools.neprer_eng(dataset_path, radius_path)
+        tools.neprer_eng(dataset_path, radius_path,save_path)
         
 
     def ShowPics(self,name):
