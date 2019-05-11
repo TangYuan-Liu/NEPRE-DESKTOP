@@ -1,7 +1,7 @@
 # NEPRE--DesktopApplication
 
 ![](https://img.shields.io/badge/license-GNU-seagreen.svg?style=flat-square)
-![](https://img.shields.io/badge/version-V2.0-blue.svg?style=flat-square)
+![](https://img.shields.io/badge/version-V3.0-blue.svg?style=flat-square)
 ![](https://img.shields.io/badge/language-Python-orange.svg?style=flat-square)
 ![](https://img.shields.io/badge/platform-Linux|Windows-blue.svg?style=flat-square&logo=windows)
 
@@ -17,18 +17,25 @@ An executable program for NEPRE.
 <img style="flex-grow:1; flex-shrink:1; border: 0px solid black;" src="./pics/UI2.JPG" width="400" />
 </div>
 
-
-
-
-
-CopyRight
+Functions
 -------------
-**Nepre** is created by **LiuLab** of **Beijing Computation Science Research Center(CSRC)**.
+* NEPRE-F Scoring Function
+* NEPRE-R Scoring Function
+* NEPRE-F EnergyMatrix Generate
+* NEPRE-R EnergyMatrix Generate
+* Correlation Analysis
+* Match Segment Extract(PYMOL Needed)
+* Amino Acid Pair Distribution(PYMOL Needed)
 
 Environment
 -------------
 * Microsoft Windows 10/8/7
 * Linux
+
+CopyRight
+-------------
+**Nepre** is created by **LiuLab** of **Beijing Computation Science Research Center(CSRC)**.  
+**Free for Academic Use**.
 
 Contact Us
 -------------

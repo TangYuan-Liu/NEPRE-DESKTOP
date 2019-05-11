@@ -12,6 +12,8 @@ import sys
 import os
 sys.path.append("..")
 import backend.package_func as tools
+import backend.NEPRE_R_ENERGYMATRIX as nr_engmatrix
+import backend.NEPRE_F_ENERGYMATRIX as nf_engmatrix
 
 ###################
 # print redirection
@@ -65,6 +67,9 @@ class nepreUI(QWidget):
         super(nepreUI,self).__init__()
         self.initUI()
 
+    def SendMessage(self,item):
+        print(item)
+
     def OpenFile(self,line_edit):
         FileDialog = QFileDialog(self)
         filepath = FileDialog.getOpenFileName(self,"Open File")
@@ -101,16 +106,22 @@ class nepreUI(QWidget):
         cutoff = int(self.combobox0.currentText()[:-2])
         save_path = self.txt8.text().replace("\\",'/')
         print("Start to generate energymatrix using NEPRE-F")
-        QApplication.processEvents()
-        tools.nepref_eng(dataset_path,cutoff,save_path)
+        self.nepre_f_eng = nf_engmatrix.nepre_f_eng()
+        self.nepre_f_eng.get_param(dataset_path,cutoff,save_path)
+        self.nepre_f_eng.start()
+        self.nepre_f_eng.finish.connect(self.SendMessage)
 
     def matrix_neprer(self):
         dataset_path = self.txt9.text().replace("\\",'/')
         radius_path = self.txt11.text().replace("\\",'/')
         save_path = self.txt10.text().replace("\\",'/')
         print("Start to generate energymatrix using NEPRE-R")
-        QApplication.processEvents()
-        tools.neprer_eng(dataset_path, radius_path,save_path)
+        #QApplication.processEvents()
+        self.nepre_r_eng = nr_engmatrix.nepre_r_eng()
+        self.nepre_r_eng.get_param(dataset_path,radius_path,save_path)
+        self.nepre_r_eng.start()
+        #print("Finished!")
+        self.nepre_r_eng.finish.connect(self.SendMessage)
         
 
     def ShowPics(self,name):
